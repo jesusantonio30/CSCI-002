@@ -44,6 +44,21 @@ int main(){
 		cout << myName[i] << " = " << int(myName[i]) << endl;
 	}
 
+	cout << char(74) << endl;
+	cout << char(101) << endl;
+	cout << char(115) << endl;
+	cout << char(117) << endl;
+	cout << char(115) << endl;
+	cout << char(32) << endl;
+	cout << char(77) << endl;
+	cout << char(111) << endl;
+	cout << char(114) << endl;
+	cout << char(97) << endl;
+	cout << char(108) << endl;
+	cout << char(101) << endl;
+	cout << char(115) << endl;
+	
+
 	return (0);
 
 }
