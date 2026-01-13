@@ -40,8 +40,8 @@ int main(){
 
 	string myName = "Jesus Morales";
 
-	for (auto i = myName.begin(); i != myName.end(); ++i) {
-		cout << *i << " = " << int(*i) << endl;
+	for (int i = 0; i < myName.size(); ++i) {
+		cout << myName[i] << " = " << int(myName[i]) << endl;
 	}
 
 	return (0);
