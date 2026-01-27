@@ -54,22 +54,14 @@ class Employee : public UScitizen {
 
 int main() {
 
-    UScitizen citizen1("Jesus", "Morales", 23, 614738526);
-    UScitizen citizen2("Maria", "Gamez", 21, 614768226);
-    UScitizen citizen3("Fatima", "Morales", 20, 617338526);
+    Employee empl1("Jesus", "Morales", 23, 648739962, 99399, 88000.00);
+    Employee empl2("Maria", "Gamez", 21, 674963862, 99398, 20000);
 
-    Person person1("Antonio", "Morales", 65);
-    Person person2("Herminia", "Bermudez", 62);
+    empl1.display();
+    cout << '\n';
+    empl2.display();
 
-    citizen1.display();
-    cout << '\n';
-    citizen2.display();
-    cout << '\n';
-    citizen3.display();
-    cout << '\n';
-    person1.display();
-    cout << '\n';
-    person2.display();
+
 
 
     return 0;
