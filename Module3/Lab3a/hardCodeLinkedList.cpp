@@ -39,6 +39,21 @@ int main() {
 
     printLinkedList(head);
 
+    tempPtr = head;
+
+    while (tempPtr != nullptr) {
+
+        // Create variables that points to current Node pointer
+            Node* deleteThis = tempPtr;
+        // Set tempPtr to point to nextNode
+            tempPtr = tempPtr->nextNode;
+
+        // Delete current Node pointer
+            delete deleteThis;
+            deleteThis = nullptr;
+
+    }
+
     return 0;
 }
 
