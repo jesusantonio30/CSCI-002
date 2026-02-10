@@ -71,10 +71,10 @@ int main() {
 
         string randFName = fNames[rand() % fNames.size()];
         string randLName = lName[rand() % lName.size()];
-        int randAge = 18 + rand() % 30;
-        int randSS = 600000000 + rand() % 100000000;
-        int randID = 10000 + rand() % 9999;
-        float randSalary = 50000 + rand() % 950000;
+        int randAge = 18 + rand() % 12;
+        int randSS = 100000000 + rand() % 600000000;
+        int randID = rand() % 999999;
+        float randSalary = 50000 + rand() % 150000;
 
 
         Employee* employee = new Employee(randFName, randLName, randAge, randSS, randID, randSalary);
