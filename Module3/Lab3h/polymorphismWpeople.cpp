@@ -10,6 +10,7 @@ class Person {
 
     public:
         Person(string argName, int argAge) : name(argName), age(argAge) {}
+        virtual ~Person() {}
         virtual void display() = 0;
 };
 
@@ -54,13 +55,12 @@ int main() {
         (myPeople[i])->display();
     }
 
-    return 0;
-}
+    for (int i = 0; i < myPeople.size(); i++) {
+        delete myPeople[i];
+        myPeople[i] = nullptr;
+    }
 
-void Person::display() {
-    cout << "This is a Person!\n";
-    cout << "Name: " << name << endl;
-    cout << "Age: " << age << endl;
+    return 0;
 }
 
 void Student::display() {
