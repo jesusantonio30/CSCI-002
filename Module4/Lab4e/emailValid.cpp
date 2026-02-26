@@ -16,7 +16,7 @@ int main() {
     getline(cin, userInput);
 
     try {
-        cout << isEmailValid(userInput) << endl;
+        isEmailValid(userInput) ? cout << "True\n" : cout << "False\n";
     } catch (const exception& err) {
         cout << err.what() << endl;
     }
