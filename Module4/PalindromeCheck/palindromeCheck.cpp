@@ -23,28 +23,40 @@ int main() {
 
     stack<char> palindromeCheck;
 
-    string myStr = "2002";
+    string myStr;
+    char checkAgain = 'n';
 
-    bool isPalindrome = false;
+    do {
+        cout << "Enter a string: ";
+        getline(cin, myStr);
 
-    for (char let : myStr) {
-        palindromeCheck.push(let);
-    }
+        bool isPalindrome = false;
 
-    while (!palindromeCheck.empty()) {
-        for (char itr : myStr) {
-            if (palindromeCheck.top() == itr) {
-                isPalindrome = true;
-            }
-            else {
-                isPalindrome = false;
-            }
-
-            palindromeCheck.pop();
+        for (char let : myStr) {
+            palindromeCheck.push(let);
         }
-    }
 
-    isPalindrome ? cout << "Is Palindrome!\n" : cout << "Is not Palindrome.\n";
+        while (!palindromeCheck.empty()) {
+            for (char itr : myStr) {
+                if (palindromeCheck.top() == itr) {
+                    isPalindrome = true;
+                }
+                else {
+                    isPalindrome = false;
+                }
+
+                palindromeCheck.pop();
+            }
+        }
+
+        isPalindrome ? cout << "Is Palindrome!\n" : cout << "Is not Palindrome.\n";
+
+        cout << "Check another string? (y/n): ";
+        cin >> checkAgain;
+
+        cin.ignore();
+
+    } while (tolower(checkAgain) == 'y');
 
     return 0;
 }
