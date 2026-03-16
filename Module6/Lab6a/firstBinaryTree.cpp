@@ -10,6 +10,8 @@ class TreeNode {
 
         TreeNode() : val(0), leftBranch(nullptr), rightBranch(nullptr) {}
         TreeNode(int argVal) : val(argVal), leftBranch(nullptr), rightBranch(nullptr) {}
+
+        void report();
 };
 
 int main() {
@@ -42,6 +44,8 @@ int main() {
 
     rootGrandChild3->leftBranch = leafNode3;
 
+    root->report();
+
     delete root;
     delete rootChild1;
     delete rootChild2;
@@ -53,6 +57,13 @@ int main() {
     delete leafNode3;
 
     return 0;
+}
+
+void TreeNode::report() {
+    cout << val << " ";
+    if (rightBranch) rightBranch->report();
+    if (leftBranch) leftBranch->report();
+
 }
 
 
