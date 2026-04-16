@@ -13,6 +13,7 @@ class Shape {
         string color;
     public:
         Shape(string argCol) { this->setColor(argCol); }
+        virtual ~Shape() = default;
 
         string getColor() {return this->color; }
         void setColor(string argCol) { this->color = argCol; }
@@ -67,16 +68,22 @@ int main() {
         Polygon * y = nullptr;
         try {
             y = new Polygon(polyColor, sides, sideLen);
+            int index = hashFunc(y);
+            table[index].push_back(y);
+            table[index].sort(listComparator);
         } catch (const runtime_error& err) {
             cout << "Error: " << err.what() << endl;
         }
-        int index = hashFunc(y);
-        table[index].push_back(y);
-        table[index].sort(listComparator);
 
     }
 
     printTable(table, size);
+
+    for (list<Polygon*> bucket : table) {
+        for (Polygon* node : bucket) {
+            delete node;
+        }
+    }
 
     return 0;
 }
