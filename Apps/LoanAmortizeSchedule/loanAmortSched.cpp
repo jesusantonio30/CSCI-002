@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <iomanip>
+#include <fstream>
 
 using namespace std;
 
@@ -21,13 +22,13 @@ class Loan {
             
         void 
             calcMonthlyPayment(),
-            printSchedule();
+            printSchedule(ostream& out, bool csv);
 };
 
 int main() {
 
     double loanAmt = 0;
-    double term = 0;
+    int term = 0;
     double apr = 0;
 
     cout << "==================================\n";
@@ -45,7 +46,18 @@ int main() {
 
     Loan calcLoan(loanAmt, apr, term);
 
-    calcLoan.printSchedule();
+    calcLoan.printSchedule(cout, false);
+
+
+    ofstream csvSchedule("amortization_schedule.csv");
+
+    if (!csvSchedule) {
+        cerr << "Error opening file for writing." << endl;
+        return 1;
+    }
+    
+    calcLoan.printSchedule(csvSchedule, true);
+    csvSchedule.close();
     
     
 
@@ -68,21 +80,33 @@ double Loan::calcInterest() {
     return balance * rate;
 }
 
-void Loan::printSchedule() {
-    cout << fixed << setprecision(2);
-    
-    cout << "Initial Balance: " << initialLoanAmt << endl;
-    balance = initialLoanAmt;
+void Loan::printSchedule(ostream& out, bool csv) {
+    out << fixed << setprecision(2);
 
+    if (csv) {
+        out << "Month,Payment,Principal,Interest,Balance\n";
+    } else {
+        out << "Initial Balance: " << initialLoanAmt << endl;
+    }
+
+    balance = initialLoanAmt;
     for (int i = 1; i <= term; i++) {
         double interest = calcInterest();
         double principal = fixedPayment - interest;
         balance = balance - principal;
 
-        cout << "----------- Month " << i << "  -----------\n";
-        cout << "Payment: " << fixedPayment << endl;
-        cout << "Principal: " << principal << endl;
-        cout << "Interest: " << interest << endl;
-        cout << "Balance: " << balance << endl;
+        if (csv) {
+            out << i << ","
+                << fixedPayment << ","
+                << principal << ","
+                << interest << ","
+                << balance << "\n";
+        } else {
+            out << "----------- Month " << i << "  -----------\n";
+            out << "Payment: " << fixedPayment << endl;
+            out << "Principal: " << principal << endl;
+            out << "Interest: " << interest << endl;
+            out << "Balance: " << balance << endl;
+        }
     }
 }
