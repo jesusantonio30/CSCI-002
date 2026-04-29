@@ -1,22 +1,23 @@
 #include <iostream>
 #include <cmath>
+#include <iomanip>
 
 using namespace std;
 
 class Loan {
     private:
-        float 
+        double 
             initialLoanAmt,
-            apr,
+            rate,
             balance,
             fixedPayment;
         int term;
 
     public:
 
-        Loan(float initLoanAmt, float apr, int term);
+        Loan(double initLoanAmt, double apr, int term);
 
-        float calcInterest();
+        double calcInterest();
             
         void 
             calcMonthlyPayment(),
@@ -25,35 +26,58 @@ class Loan {
 
 int main() {
 
+    double loanAmt = 0;
+    double term = 0;
+    double apr = 0;
+
+    cout << "==================================\n";
+    cout << "   Loan Amortization Calculator\n";
+    cout << "==================================\n";
+
+    cout << "\n\nAmount to Finance: ";
+    cin >> loanAmt;
+
+    cout << "\nLoan Term in years: ";
+    cin >> term;
+
+    cout << "\nAnnual Percentage Rate (APR %): ";
+    cin >> apr;
+
+    Loan calcLoan(loanAmt, apr, term);
+
+    calcLoan.printSchedule();
+    
+    
+
     return 0;
 }
 
-Loan::Loan(float initLoanAmt, float apr, int term) {
+Loan::Loan(double initLoanAmt, double apr, int term) {
     this->initialLoanAmt = initLoanAmt;
-    this->apr = apr;
-    this->term = term;
+    this->rate = (apr / 100) / 12.0;
+    this->term = term * 12;
 
     calcMonthlyPayment();
 }
 
 void Loan::calcMonthlyPayment() {
-    float rate = apr / 12;
-    fixedPayment = initialLoanAmt * ((rate * pow(1 + rate, term)) / (pow(1 + rate, term) - 1));
+    fixedPayment = initialLoanAmt * (rate * (pow(1 + rate, term)) / ((pow(1 + rate, term) - 1)));
 }
 
-float Loan::calcInterest() {
-    float rate = apr / 12;
+double Loan::calcInterest() {
     return balance * rate;
 }
 
 void Loan::printSchedule() {
+    cout << fixed << setprecision(2);
+    
     cout << "Initial Balance: " << initialLoanAmt << endl;
     balance = initialLoanAmt;
 
     for (int i = 1; i <= term; i++) {
-        float interest = calcInterest();
-        float principal = fixedPayment - interest;
-        balance -= principal;
+        double interest = calcInterest();
+        double principal = fixedPayment - interest;
+        balance = balance - principal;
 
         cout << "----------- Month " << i << "  -----------\n";
         cout << "Payment: " << fixedPayment << endl;
